@@ -5,15 +5,15 @@ export default async function Home() {
     "https://65310d5a4d4c2e3f333c4831.mockapi.io/products",
     {
       cache: "no-cache",
-      next:{
+      next: {
         tags: ["products"],
-      }
+      },
     }
   );
   const data: UIproducts[] = await res.json();
 
   return (
-    <main className="">
+    <main>
       <h1 className="text-3xl font-bold text-center">Products WareHouse</h1>
       <form
         action={addProduct}
@@ -38,23 +38,27 @@ export default async function Home() {
           Add Product
         </button>
       </form>
-      <hr className="border-violet-700 max-w-4xl mx-auto"/>
-      <div className="flex flex-col items-center max-w-4xl mx-auto">
-
-      <h2 className="font-bold p-5 text-electric-violet-400 text-3xl">
-        List of Products
-      </h2>
-      <div className="flex flex-wrap gap-5">
-        {data.map((product) => (
-          <div
-            key={product.id}
-            className="p-5 shadow-sm shadow-electric-violet-300"
-          >
-            <h1>{product.product}</h1>
-            <p>{product.price}</p>
-          </div>
-        ))}
-      </div>
+      <hr className="border-violet-700 max-w-4xl mx-auto" />
+      <div className="flex flex-col items-center max-w-4xl mx-auto mb-16">
+        <h2 className="font-bold p-5 text-electric-violet-400 text-3xl">
+          List of Products
+        </h2>
+        <div className="grid grid-cols-6 gap-5">
+          {data.map((product) => (
+            <a
+              href={`product/${product.id}`}
+              className="hover:scale-105 cursor-pointer hover:bg-slate-800"
+            >
+              <div
+                key={product.id}
+                className="p-5 shadow-sm shadow-electric-violet-300"
+              >
+                <h1>{product.product}</h1>
+                <p>{product.price}</p>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
     </main>
   );
